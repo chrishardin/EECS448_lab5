@@ -1,0 +1,55 @@
+<html>
+    <head>
+    <title> Exercise 7 </title>
+    </head>
+    <body>
+        <h2>delete user posts</h2>
+	<br>
+        <form action="DeletePost.php" method="POST">
+	<table>
+	<thead>
+	<tr>
+           <th>post_id</th>
+           <th>content</th>
+           <th>author_id</th>
+           <th>delete?</th>
+	</tr>
+	</thead>
+	<tbody>
+
+<?php
+
+$mysqli = new mysqli("mysql.eecs.ku.edu", "christopherhardi", "password", "christopherhardi");
+
+$i = $mysqli->query("SELECT post_id, content, author_id FROM Posts");
+
+if($i) { 
+while($row = $i->fetch_assoc()) { 
+	echo "<tr>";
+	$a = $row["post_id"];
+	echo "<td>";
+	echo $row["post_id"];
+	echo "</td>";
+	echo "<td>";
+	echo $row["content"];
+	echo "</td>";
+
+	echo "<td>";
+	echo $row["author_id"];
+	echo "</td>";
+	echo "<td>";
+	echo "<input name= 'post_id[]' value='$a' type= 'checkbox'>";
+	echo "</td>";
+	echo "</tr>";
+}
+}
+
+$i -> free();
+$mysqli->close();
+?>
+	</tbody>
+	</table>
+        <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
